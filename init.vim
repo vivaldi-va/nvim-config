@@ -35,7 +35,7 @@ Plug 'Chiel92/vim-autoformat'
 Plug 'mutewinter/nginx.vim'
 Plug 'othree/html5.vim'
 Plug 'leshill/vim-json'
-" Plug 'dodie/vim-disapprove-deep-indentation'
+Plug 'digitaltoad/vim-pug'
 
 " Code folding for Python
 Plug 'tmhedberg/SimpylFold'
@@ -118,7 +118,7 @@ autocmd FileType python set omnifunc=pythoncomplete#Complete
 " JavaScript specific configs
 """""""""""""""""""""""""""""
 
-autocmd FileType javascript setlocal shiftwidth=4 expandtab tabstop=4 softtabstop=4
+autocmd FileType javascript setlocal shiftwidth=2 expandtab tabstop=2 softtabstop=2
 autocmd FileType javascript setlocal colorcolumn=99
 
 " JSDoc config
