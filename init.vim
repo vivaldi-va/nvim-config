@@ -35,6 +35,7 @@ Plug 'Chiel92/vim-autoformat'
 Plug 'mutewinter/nginx.vim'
 Plug 'othree/html5.vim'
 Plug 'leshill/vim-json'
+Plug 'ekalinin/Dockerfile.vim'
 " Plug 'dodie/vim-disapprove-deep-indentation'
 
 " Code folding for Python
