@@ -2,8 +2,6 @@
 
 call plug#begin('~/.config/vim/plugged')
 
-Plug 'tpope/vim-sensible'
-
 " General
 Plug 'Xuyuanp/nerdtree-git-plugin' | Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'jistr/vim-nerdtree-tabs'
@@ -36,6 +34,7 @@ Plug 'mutewinter/nginx.vim'
 Plug 'othree/html5.vim'
 Plug 'leshill/vim-json'
 Plug 'digitaltoad/vim-pug'
+Plug 'ekalinin/Dockerfile.vim'
 
 " Code folding for Python
 Plug 'tmhedberg/SimpylFold'
