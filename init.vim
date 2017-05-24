@@ -35,6 +35,7 @@ Plug 'othree/html5.vim'
 Plug 'leshill/vim-json'
 Plug 'digitaltoad/vim-pug'
 Plug 'ekalinin/Dockerfile.vim'
+Plug 'mxw/vim-jsx'
 
 " Code folding for Python
 Plug 'tmhedberg/SimpylFold'
@@ -153,6 +154,8 @@ let g:syntastic_disabled_filetypes=['html', 'jinja']
 let g:syntastic_python_flake8_args='--ignore=E501,E128'
 let g:syntastic_scss_checkers = ['scss_lint']
 
+let g:jsx_ext_required = 0
+
 " Load checkers which have configuration present
 function! JavascriptCheckers()
   let checkers = []
@@ -166,13 +169,13 @@ function! JavascriptCheckers()
 
   " look for the closest eslintrc file up the tree
   if findfile('.eslintrc', '.;') != ''
-    echo "adding eslint"
+    " echo "adding eslint"
     call add(checkers, 'eslint')
   endif
 
   " Use the locally installed eslint if it exists
   if findfile(getcwd() . '/node_modules/.bin/eslint') != ''
-    echo "using local eslint"
+    " echo "using local eslint"
     let b:syntastic_javascript_eslint_exec = getcwd() . '/node_modules/.bin/eslint'
   endif
 
