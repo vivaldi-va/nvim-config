@@ -37,6 +37,7 @@ Plug 'digitaltoad/vim-pug'
 Plug 'ekalinin/Dockerfile.vim'
 Plug 'vim-scripts/groovy.vim'
 Plug 'mxw/vim-jsx'
+Plug 'junegunn/goyo.vim'
 
 " Code folding for Python
 Plug 'tmhedberg/SimpylFold'
@@ -259,3 +260,19 @@ let g:airline_section_x = '%{PencilMode()}'
 let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 
 " configuring colours
+"
+
+function! ProseMode()
+  call goyo#execute(0, [])
+  set spell noci nosi noai nolist noshowmode noshowcmd
+  set complete+=s
+  set bg=light
+	NERDTreeClose
+  if !has('gui_running')
+    let g:solarized_termcolors=256
+  endif
+  colors solarized
+endfunction
+
+command! ProseMode call ProseMode()
+nmap \p :ProseMode<CR>
