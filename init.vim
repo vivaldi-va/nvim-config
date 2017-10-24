@@ -16,6 +16,7 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'kshenoy/vim-signature'
 Plug 'mattn/emmet-vim'
 Plug 'ap/vim-css-color'
+" Plug 'w0rp/ale'
 
 " In-file searching ala 'ack'
 Plug 'gabesoft/vim-ags'
@@ -262,17 +263,24 @@ let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 " configuring colours
 "
 
+let g:prose_mode = 0
+
 function! ProseMode()
   call goyo#execute(0, [])
   set spell noci nosi noai nolist noshowmode noshowcmd
   set complete+=s
-  set bg=light
-	NERDTreeClose
-  if !has('gui_running')
-    let g:solarized_termcolors=256
+  if !g:prose_mode
+    let g:prose_mode = 1
+    set bg=light
+    NERDTreeClose
+  else
+    let g:prose_mode = 0
+    set bg=dark
+    NERDTree
+    NERDTreeTabsOpen
   endif
-  colors solarized
 endfunction
 
 command! ProseMode call ProseMode()
 nmap \p :ProseMode<CR>
+
