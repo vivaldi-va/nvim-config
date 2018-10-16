@@ -33,12 +33,13 @@ Plug 'pangloss/vim-javascript'
 Plug 'Chiel92/vim-autoformat'
 Plug 'mutewinter/nginx.vim'
 Plug 'othree/html5.vim'
-Plug 'leshill/vim-json'
+Plug 'elzr/vim-json'
 Plug 'digitaltoad/vim-pug'
 Plug 'ekalinin/Dockerfile.vim'
 Plug 'vim-scripts/groovy.vim'
 Plug 'mxw/vim-jsx'
 Plug 'junegunn/goyo.vim'
+Plug 'amadeus/vim-mjml'
 
 " Code folding for Python
 Plug 'tmhedberg/SimpylFold'
@@ -125,8 +126,11 @@ autocmd FileType javascript setlocal shiftwidth=2 expandtab tabstop=2 softtabsto
 autocmd FileType javascript setlocal colorcolumn=99
 
 " JSDoc config
-
 let g:jsdoc_enable_es6=1
+" let g:javascript_plugin_jsdoc=1
+
+" JSON
+let g:vim_json_syntax_conceal = 0
 
 
 " NERDTree settings
@@ -172,13 +176,11 @@ function! JavascriptCheckers()
 
   " look for the closest eslintrc file up the tree
   if findfile('.eslintrc', '.;') != ''
-    " echo "adding eslint"
     call add(checkers, 'eslint')
   endif
 
   " Use the locally installed eslint if it exists
   if findfile(getcwd() . '/node_modules/.bin/eslint') != ''
-    " echo "using local eslint"
     let b:syntastic_javascript_eslint_exec = getcwd() . '/node_modules/.bin/eslint'
   endif
 
@@ -188,7 +190,8 @@ endfunction
 if findfile(getcwd() . '/node_modules/.bin/eslint') != ''
   let b:syntastic_javascript_eslint_exec = getcwd() . '/node_modules/.bin/eslint'
 endif
-"let g:syntastic_javascript_checkers=['jscs', 'eslint', 'jshint']
+
+" let g:syntastic_javascript_checkers=['jscs', 'eslint', 'jshint']
 let g:syntastic_javascript_checkers=[]
 autocmd FileType javascript let b:syntastic_checkers = JavascriptCheckers()
 
@@ -282,5 +285,5 @@ function! ProseMode()
 endfunction
 
 command! ProseMode call ProseMode()
-nmap \p :ProseMode<CR>
+nmap <leader>p :ProseMode<CR>
 
