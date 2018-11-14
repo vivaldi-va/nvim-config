@@ -109,6 +109,11 @@ set softtabstop=2
 set shiftwidth=2
 set expandtab
 
+" Python bins
+"""""""""""""""""""
+let g:python2_host_prog = '/usr/bin/python'
+let g:python3_host_prog = '/usr/local/bin/python3'
+
 " Python specific configs
 """""""""""""""""""""""""
 
@@ -242,6 +247,9 @@ autocmd BufWinLeave *.py setlocal foldexpr< foldmethod<
 
 " Automatically strip trailing whitespace
 autocmd BufWritePre * :%s/\s\+$//e
+
+" clipboard
+set clipboard=unnamed
 
 " Configure vim-pencil
 let g:pencil#wrapModeDefault = 'soft'   " default is 'hard'
