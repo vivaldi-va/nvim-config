@@ -17,6 +17,7 @@ Plug 'kshenoy/vim-signature'
 Plug 'mattn/emmet-vim'
 Plug 'ap/vim-css-color'
 " Plug 'w0rp/ale'
+Plug 'triglav/vim-visual-increment'
 
 " In-file searching ala 'ack'
 Plug 'gabesoft/vim-ags'
