@@ -249,7 +249,8 @@ autocmd BufWinLeave *.py setlocal foldexpr< foldmethod<
 autocmd BufWritePre * :%s/\s\+$//e
 
 " clipboard
-set clipboard=unnamed
+" Linux requires 'apt-get install xclip'
+set clipboard+=unnamedplus
 
 " Configure vim-pencil
 let g:pencil#wrapModeDefault = 'soft'   " default is 'hard'
