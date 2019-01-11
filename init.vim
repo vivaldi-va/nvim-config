@@ -41,6 +41,7 @@ Plug 'vim-scripts/groovy.vim'
 Plug 'mxw/vim-jsx'
 Plug 'junegunn/goyo.vim'
 Plug 'amadeus/vim-mjml'
+Plug 'leafgarland/typescript-vim'
 
 " Code folding for Python
 Plug 'tmhedberg/SimpylFold'
@@ -140,10 +141,18 @@ let g:vim_json_syntax_conceal = 0
 
 
 " NERDTree settings
+autocmd StdinReadPre * let s:std_in=1
 let NERDTreeIgnore = ['\.pyc$', '\.egg$', '\.o$', '\~$', '__pycache__$', '\.egg-info$']
-let NERDTreeShowHidden =1
-au VimEnter * NERDTree
-au VimEnter * NERDTreeTabsOpen
+let NERDTreeShowHidden=1
+
+function! Nerd()
+  if argc() == 0 && !exists("s:std_in")
+    NERDTree
+    NERDTreeTabsOpen
+  endif
+endfunction
+
+autocmd VimEnter * call Nerd()
 
 " Syntax checker options
 let g:flake8_ignore="E128,E501"
@@ -285,7 +294,6 @@ function! ProseMode()
   if !g:prose_mode
     let g:prose_mode = 1
     set bg=light
-    NERDTreeClose
   else
     let g:prose_mode = 0
     set bg=dark
