@@ -42,6 +42,8 @@ Plug 'mxw/vim-jsx'
 Plug 'junegunn/goyo.vim'
 Plug 'amadeus/vim-mjml'
 Plug 'leafgarland/typescript-vim'
+Plug 'aklt/plantuml-syntax'
+
 
 " Code folding for Python
 Plug 'tmhedberg/SimpylFold'
@@ -194,6 +196,10 @@ function! JavascriptCheckers()
     call add(checkers, 'eslint')
   endif
 
+  if findfile('.eslintrc.js', '.;') != ''
+    call add(checkers, 'eslint')
+  endif
+
   " Use the locally installed eslint if it exists
   if findfile(getcwd() . '/node_modules/.bin/eslint') != ''
     let b:syntastic_javascript_eslint_exec = getcwd() . '/node_modules/.bin/eslint'
@@ -265,11 +271,11 @@ set clipboard+=unnamedplus
 let g:pencil#wrapModeDefault = 'soft'   " default is 'hard'
 augroup pencil
   autocmd!
-  autocmd FileType markdown,mkd call pencil#init()
+  autocmd FileType markdown,mkd,txt call pencil#init()
                             \ | setl spell spl=en_us fdl=4 noru nonu nornu
                             \ | setl fdo+=search
   autocmd Filetype git,gitsendemail,*commit*,*COMMIT*
-                            \   call pencil#init({'wrap': 'hard', 'textwidth': 72})
+                            \   call pencil#init({'wrap': 'soft', 'textwidth': 72})
                             \ | setl spell spl=en_us et sw=2 ts=2 noai
   autocmd Filetype mail         call pencil#init({'wrap': 'hard', 'textwidth': 60})
                             \ | setl spell spl=en_us et sw=2 ts=2 noai nonu nornu
@@ -294,6 +300,7 @@ function! ProseMode()
   if !g:prose_mode
     let g:prose_mode = 1
     set bg=light
+    NERDTreeClose || true
   else
     let g:prose_mode = 0
     set bg=dark
