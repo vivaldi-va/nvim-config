@@ -65,7 +65,6 @@ Plug 'morhetz/gruvbox'
 
 call plug#end()
 
-
 " Colorscheme
 set background=dark
 colorscheme gruvbox
@@ -87,9 +86,20 @@ let mapleader = ","
 set ignorecase
 set hlsearch
 
+" don't need swp files
+set nobackup
+set noswapfile
+
 " Only hide buffers when changing between them;
 " this way we can keep their undo histories.
 set hidden
+
+" since I constantly write accidentally mess these up when going fast
+command WQ wq
+command Wq wq
+command W w
+command Q q
+
 
 " NERDTree toggle
 noremap <leader>t :NERDTreeToggle<CR>
