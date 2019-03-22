@@ -102,7 +102,7 @@ command Q q
 
 
 " NERDTree toggle
-noremap <leader>t :NERDTreeToggle<CR>
+noremap <leader>t :NERDTreeTabsToggle<CR>
 
 " Run manual syntastic check
 noremap <F8> :TagbarToggle<CR>
