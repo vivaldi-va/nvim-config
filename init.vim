@@ -95,10 +95,10 @@ set noswapfile
 set hidden
 
 " since I constantly write accidentally mess these up when going fast
-command WQ wq
-command Wq wq
-command W w
-command Q q
+command! WQ wq
+command! Wq wq
+command! W w
+command! Q q
 
 
 " NERDTree toggle
