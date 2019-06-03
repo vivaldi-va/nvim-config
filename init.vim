@@ -318,9 +318,9 @@ function! ProseMode()
     Goyo
   else
     let g:prose_mode = 0
+    Goyo!
     NERDTree
     NERDTreeTabsOpen
-    Goyo!
   endif
 endfunction
 
