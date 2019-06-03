@@ -9,7 +9,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'scrooloose/syntastic'
 Plug 'scrooloose/nerdcommenter'
-Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline'
 Plug 'tpope/vim-surround'
 Plug 'jiangmiao/auto-pairs'
 Plug 'editorconfig/editorconfig-vim'
@@ -41,6 +41,7 @@ Plug 'ekalinin/Dockerfile.vim'
 Plug 'vim-scripts/groovy.vim'
 Plug 'mxw/vim-jsx'
 Plug 'junegunn/goyo.vim'
+Plug 'junegunn/limelight.vim'
 Plug 'amadeus/vim-mjml'
 Plug 'leafgarland/typescript-vim'
 Plug 'aklt/plantuml-syntax'
@@ -67,6 +68,7 @@ Plug 'morhetz/gruvbox'
 call plug#end()
 
 " Colorscheme
+let  g:gruvbox_italic=1
 set background=dark
 colorscheme gruvbox
 
@@ -302,25 +304,53 @@ let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 " configuring colours
 "
 
+" Prose mode
 let g:prose_mode = 0
 
 function! ProseMode()
-  call goyo#execute(0, [])
   set spell noci nosi noai nolist noshowmode noshowcmd
   set complete+=s
   if !g:prose_mode
     let g:prose_mode = 1
-    set bg=light
     if exists('g:NERDTree') && g:NERDTree.IsOpen()
-      NERDTreeClose
+      NERDTreeTabsClose
     endif
+    Goyo
   else
     let g:prose_mode = 0
-    set bg=dark
     NERDTree
     NERDTreeTabsOpen
+    Goyo!
   endif
 endfunction
+
+let g:limelight_conceal_ctermfg = 250
+let g:limelight_conceal_guifg = '#d5c4a1'
+
+function! s:goyo_enter()
+  let b:quitting = 0
+  let b:quitting_bang = 0
+  autocmd QuitPre <buffer> let b:quitting = 1
+  cabbrev <buffer> q! let b:quitting_bang = 1 <bar> q!
+  let g:loaded_airline = 0
+  Limelight
+endfunction
+
+function! s:goyo_leave()
+  " Quit Vim if this is the only remaining buffer
+  if b:quitting && len(filter(range(1, bufnr('$')), 'buflisted(v:val)')) == 1
+    if b:quitting_bang
+      qa!
+    else
+      qa
+    endif
+  endif
+  let g:loaded_airline = 1
+  Limelight!
+endfunction
+
+autocmd! User GoyoEnter call <SID>goyo_enter()
+autocmd! User GoyoLeave call <SID>goyo_leave()
 
 command! ProseMode call ProseMode()
 nmap <leader>p :ProseMode<CR>
