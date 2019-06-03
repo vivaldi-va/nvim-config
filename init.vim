@@ -311,7 +311,9 @@ function! ProseMode()
   if !g:prose_mode
     let g:prose_mode = 1
     set bg=light
-    NERDTreeClose || true
+    if exists('g:NERDTree') && g:NERDTree.IsOpen()
+      NERDTreeClose
+    endif
   else
     let g:prose_mode = 0
     set bg=dark
