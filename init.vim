@@ -333,6 +333,7 @@ function! s:goyo_enter()
   autocmd QuitPre <buffer> let b:quitting = 1
   cabbrev <buffer> q! let b:quitting_bang = 1 <bar> q!
   let g:loaded_airline = 0
+  set eventignore=FocusGained
   Limelight
 endfunction
 
@@ -346,6 +347,7 @@ function! s:goyo_leave()
     endif
   endif
   let g:loaded_airline = 1
+  set eventignore=
   Limelight!
 endfunction
 
