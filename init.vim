@@ -19,6 +19,7 @@ Plug 'ap/vim-css-color'
 " Plug 'w0rp/ale'
 Plug 'triglav/vim-visual-increment'
 Plug 'vivaldi-va/tabline.vim'
+Plug 'mtth/scratch.vim'
 
 " In-file searching ala 'ack'
 Plug 'gabesoft/vim-ags'
