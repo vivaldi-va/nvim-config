@@ -359,3 +359,5 @@ autocmd! User GoyoLeave call <SID>goyo_leave()
 command! ProseMode call ProseMode()
 nmap <leader>p :ProseMode<CR>
 
+nmap <leader>s :Scratch<CR>
+
