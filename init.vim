@@ -105,6 +105,16 @@ command! Wq wq
 command! W w
 command! Q q
 
+" w!! to write with sudo even if not opened with sudo
+cmap w!! w !sudo tee >/dev/null %
+"split navigations
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+" Bind to clear search
+nmap <leader>/ :nohlsearch<CR>
+
 
 " NERDTree toggle
 noremap <leader>t :NERDTreeTabsToggle<CR>
