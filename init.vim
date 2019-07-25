@@ -287,6 +287,10 @@ autocmd BufWinLeave *.py setlocal foldexpr< foldmethod<
 " Automatically strip trailing whitespace
 autocmd BufWritePre * :%s/\s\+$//e
 
+" Open ags results in new tab with ot
+autocmd FileType agsv nnoremap <buffer> ot
+  \ :exec 'tab split ' . ags#filePath(line('.'))<CR>
+
 " clipboard
 " Linux requires 'apt-get install xclip'
 set clipboard+=unnamedplus
