@@ -299,7 +299,8 @@ set clipboard+=unnamedplus
 let g:pencil#wrapModeDefault = 'soft'   " default is 'hard'
 augroup pencil
   autocmd!
-  autocmd FileType markdown,mkd,txt call pencil#init()
+  autocmd FileType markdown,mkd,txt
+                            \   call pencil#init({ 'wrap': 'soft' })
                             \ | setl spell spl=en_us fdl=4 noru nonu nornu
                             \ | setl fdo+=search
   autocmd Filetype git,gitsendemail,*commit*,*COMMIT*
@@ -331,6 +332,8 @@ function! ProseMode()
       NERDTreeTabsClose
     endif
     Goyo
+    SoftPencil
+
   else
     let g:prose_mode = 0
     Goyo!
