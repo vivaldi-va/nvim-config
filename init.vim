@@ -17,7 +17,7 @@ Plug 'kshenoy/vim-signature'
 Plug 'mattn/emmet-vim'
 Plug 'ap/vim-css-color'
 Plug 'triglav/vim-visual-increment'
-Plug 'vivaldi-va/tabline.vim'
+"Plug 'vivaldi-va/tabline.vim'
 Plug 'mtth/scratch.vim'
 Plug 'christoomey/vim-tmux-navigator'
 
@@ -259,6 +259,11 @@ set list listchars=tab:»\ ,trail:·
 
 " Automatically populate the g:airline_symbols dictionary with the powerline symbols.
 let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#show_tab_nr = 1
+let g:airline#extensions#tabline#tab_nr_type= 1
+let g:airline#extensions#tabline#show_tab_type = 1
+let g:airline#extensions#tabline#formatter = 'default'
 
 " Line numbers
 set number
