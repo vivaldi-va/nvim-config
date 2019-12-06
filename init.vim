@@ -168,7 +168,7 @@ let g:vim_json_syntax_conceal = 0
 
 " NERDTree settings
 autocmd StdinReadPre * let s:std_in=1
-let NERDTreeIgnore = ['\.pyc$', '\.egg$', '\.o$', '\~$', '__pycache__$', '\.egg-info$']
+let NERDTreeIgnore = ['\.pyc$', '\.egg$', '\.o$', '\~$', '__pycache__$', '\.egg-info$', 'node_modules']
 let NERDTreeShowHidden=1
 
 function! Nerd()
