@@ -63,7 +63,6 @@ Plug 'reedes/vim-pencil'
 
 " The all-important colorscheme
 Plug 'morhetz/gruvbox'
-Plug 'dylanaraps/wal.vim'
 
 call plug#end()
 
