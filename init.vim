@@ -120,7 +120,7 @@ nmap <leader>/ :nohlsearch<CR>
 noremap <leader>t :NERDTreeTabsToggle<CR>
 
 " Run manual syntastic check
-noremap <F8> :TagbarToggle<CR>
+noremap <F8> :SyntasticCheck<CR>
 
 " Toggle highlight on ,/
 nnoremap <leader>/ :set hlsearch!<CR>
