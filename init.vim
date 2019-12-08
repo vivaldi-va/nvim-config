@@ -62,9 +62,8 @@ Plug 'majutsushi/tagbar'
 Plug 'reedes/vim-pencil'
 
 " The all-important colorscheme
-Plug 'altercation/vim-colors-solarized'
-Plug '29decibel/codeschool-vim-theme'
 Plug 'morhetz/gruvbox'
+Plug 'dylanaraps/wal.vim'
 
 call plug#end()
 
@@ -97,6 +96,9 @@ set noswapfile
 " Only hide buffers when changing between them;
 " this way we can keep their undo histories.
 set hidden
+
+" don't need the mode to show since it's in the status line
+set noshowmode
 
 " since I constantly write accidentally mess these up when going fast
 command! WQ wq
