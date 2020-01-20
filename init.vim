@@ -204,7 +204,7 @@ let g:flake8_ignore="E128,E501"
 " ALE settings
 let g:ale_sign_error = '✗'
 let g:ale_sign_warning = '⚠'
-let g:airline#extensions#ale#enabled = 0
+let g:airline#extensions#ale#enabled = 1
 nmap <silent> <C-[> <Plug>(ale_previous_wrap)
 nmap <silent> <C-]> <Plug>(ale_next_wrap)
 
