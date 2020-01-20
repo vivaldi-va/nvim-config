@@ -7,7 +7,8 @@ Plug 'Xuyuanp/nerdtree-git-plugin' | Plug 'scrooloose/nerdtree', { 'on':  'NERDT
 Plug 'jistr/vim-nerdtree-tabs'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
-Plug 'scrooloose/syntastic'
+"Plug 'scrooloose/syntastic'
+Plug 'dense-analysis/ale'
 Plug 'scrooloose/nerdcommenter'
 Plug 'vim-airline/vim-airline'
 Plug 'tpope/vim-surround'
@@ -119,9 +120,6 @@ nmap <leader>/ :nohlsearch<CR>
 " NERDTree toggle
 noremap <leader>t :NERDTreeTabsToggle<CR>
 
-" Run manual syntastic check
-noremap <F8> :SyntasticCheck<CR>
-
 " Toggle highlight on ,/
 nnoremap <leader>/ :set hlsearch!<CR>
 
@@ -185,23 +183,30 @@ autocmd VimEnter * call Nerd()
 let g:flake8_ignore="E128,E501"
 
 " Syntastic settings
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-let g:syntastic_auto_jump = 0
-let g:syntastic_enable_signs = 1
-let g:syntastic_error_symbol = "✗"
-let g:syntastic_warning_symbol = "⚠"
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 0
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_aggregate_errors = 1
+" set statusline+=%#warningmsg#
+" set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%*
+" let g:syntastic_auto_jump = 0
+" let g:syntastic_enable_signs = 1
+" let g:syntastic_error_symbol = "✗"
+" let g:syntastic_warning_symbol = "⚠"
+" let g:syntastic_always_populate_loc_list = 1
+" let g:syntastic_auto_loc_list = 0
+" let g:syntastic_check_on_open = 1
+" let g:syntastic_check_on_wq = 0
+" let g:syntastic_aggregate_errors = 1
+"
+" let g:syntastic_python_checkers = ['flake8']
+" let g:syntastic_disabled_filetypes=['html', 'jinja']
+" let g:syntastic_python_flake8_args='--ignore=E501,E128'
+" let g:syntastic_scss_checkers = ['scss_lint']
 
-let g:syntastic_python_checkers = ['flake8']
-let g:syntastic_disabled_filetypes=['html', 'jinja']
-let g:syntastic_python_flake8_args='--ignore=E501,E128'
-let g:syntastic_scss_checkers = ['scss_lint']
+" ALE settings
+let g:ale_sign_error = '✗'
+let g:ale_sign_warning = '⚠'
+let g:airline#extensions#ale#enabled = 0
+nmap <silent> <C-[> <Plug>(ale_previous_wrap)
+nmap <silent> <C-]> <Plug>(ale_next_wrap)
 
 let g:jsx_ext_required = 0
 
