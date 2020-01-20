@@ -210,42 +210,6 @@ nmap <silent> <C-]> <Plug>(ale_next_wrap)
 
 let g:jsx_ext_required = 0
 
-" Load checkers which have configuration present
-function! JavascriptCheckers()
-  let checkers = []
-  if filereadable(getcwd() . '/.jscsrc')
-    call add(checkers, 'jscs')
-  endif
-
-  if filereadable(getcwd() . '/.jshintrc')
-    call add(checkers, 'jshint')
-  endif
-
-  " look for the closest eslintrc file up the tree
-  if findfile('.eslintrc', '.;') != ''
-    call add(checkers, 'eslint')
-  endif
-
-  if findfile('.eslintrc.js', '.;') != ''
-    call add(checkers, 'eslint')
-  endif
-
-  " Use the locally installed eslint if it exists
-  if findfile(getcwd() . '/node_modules/.bin/eslint') != ''
-    let b:syntastic_javascript_eslint_exec = getcwd() . '/node_modules/.bin/eslint'
-  endif
-
-  return checkers
-endfunction
-
-if findfile(getcwd() . '/node_modules/.bin/eslint') != ''
-  let b:syntastic_javascript_eslint_exec = getcwd() . '/node_modules/.bin/eslint'
-endif
-
-" let g:syntastic_javascript_checkers=['jscs', 'eslint', 'jshint']
-let g:syntastic_javascript_checkers=[]
-autocmd FileType javascript let b:syntastic_checkers = JavascriptCheckers()
-
 hi Search ctermfg=0 ctermbg=11 guifg=Black guibg=Yellow
 hi SpellBad ctermfg=15 ctermbg=9 guifg=White guibg=Red
 hi Folded term=bold ctermfg=85 ctermbg=234 gui=bold guifg=#9cffd3 guibg=#202020
