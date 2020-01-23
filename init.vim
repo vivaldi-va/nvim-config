@@ -113,15 +113,13 @@ cmap w!! w !sudo tee >/dev/null %
 " nnoremap <C-K> <C-W><C-K>
 " nnoremap <C-L> <C-W><C-L>
 " nnoremap <C-H> <C-W><C-H>
+
 " Bind to clear search
-nmap <leader>/ :nohlsearch<CR>
+nmap <leader>/ :noh<CR>
 
 
 " NERDTree toggle
 noremap <leader>t :NERDTreeTabsToggle<CR>
-
-" Toggle highlight on ,/
-nnoremap <leader>/ :set hlsearch!<CR>
 
 " Map main trigger for fuzzy file finder
 noremap <C-p> :FZF<CR>
