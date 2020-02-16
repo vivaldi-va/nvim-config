@@ -53,7 +53,7 @@ Plug 'aklt/plantuml-syntax'
 Plug 'tmhedberg/SimpylFold'
 
 " Javascript stuff
-Plug 'heavenshell/vim-jsdoc'
+Plug 'joegesualdo/jsdoc.vim'
 
 " Ctags tagbar
 Plug 'majutsushi/tagbar'
@@ -156,8 +156,10 @@ autocmd FileType javascript setlocal shiftwidth=2 expandtab tabstop=2 softtabsto
 autocmd FileType javascript setlocal colorcolumn=99
 
 " JSDoc config
-let g:jsdoc_enable_es6=1
-" let g:javascript_plugin_jsdoc=1
+let g:javascript_plugin_jsdoc=1
+
+nmap <leader>j :<C-u>call JSDocAdd()<CR>
+
 
 " JSON
 let g:vim_json_syntax_conceal = 0
