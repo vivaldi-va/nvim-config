@@ -47,6 +47,7 @@ Plug 'junegunn/limelight.vim'
 Plug 'amadeus/vim-mjml'
 Plug 'leafgarland/typescript-vim'
 Plug 'aklt/plantuml-syntax'
+Plug 'sile-typesetter/vim-sile'
 
 
 " Code folding for Python
@@ -120,6 +121,7 @@ nmap <leader>/ :noh<CR>
 
 " NERDTree toggle
 noremap <leader>t :NERDTreeTabsToggle<CR>
+noremap <leader>f :NERDTreeFind<CR>
 
 " Map main trigger for fuzzy file finder
 noremap <C-p> :FZF<CR>
