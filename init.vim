@@ -48,6 +48,7 @@ Plug 'amadeus/vim-mjml'
 Plug 'leafgarland/typescript-vim'
 Plug 'aklt/plantuml-syntax'
 Plug 'sile-typesetter/vim-sile'
+Plug 'jparise/vim-graphql'
 
 
 " Code folding for Python
@@ -101,7 +102,7 @@ set hidden
 " don't need the mode to show since it's in the status line
 set noshowmode
 
-" since I constantly write accidentally mess these up when going fast
+" since I constantly accidentally mess these up when going fast
 command! WQ wq
 command! Wq wq
 command! W w
@@ -138,7 +139,7 @@ set expandtab
 " Python bins
 """""""""""""""""""
 let g:python2_host_prog = '/usr/bin/python'
-let g:python3_host_prog = '/usr/local/bin/python3'
+let g:python3_host_prog = '/usr/bin/python3'
 
 " Python specific configs
 """""""""""""""""""""""""
