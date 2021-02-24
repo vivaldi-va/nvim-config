@@ -21,6 +21,8 @@ Plug 'triglav/vim-visual-increment'
 "Plug 'vivaldi-va/tabline.vim'
 Plug 'mtth/scratch.vim'
 Plug 'christoomey/vim-tmux-navigator'
+Plug 'mzlogin/vim-markdown-toc'
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
 
 " In-file searching ala 'ack'
 Plug 'gabesoft/vim-ags'
@@ -49,6 +51,7 @@ Plug 'leafgarland/typescript-vim'
 Plug 'aklt/plantuml-syntax'
 Plug 'sile-typesetter/vim-sile'
 Plug 'jparise/vim-graphql'
+Plug 'zhaozg/vim-diagram'
 
 
 " Code folding for Python
@@ -208,6 +211,8 @@ let g:flake8_ignore="E128,E501"
 let g:ale_sign_error = '✗'
 let g:ale_sign_warning = '⚠'
 let g:airline#extensions#ale#enabled = 1
+let b:ale_fixers = {'javascript': ['eslint']}
+let b:ale_linters = {'javascript': ['eslint']}
 nmap <silent> <C-[> <Plug>(ale_previous_wrap)
 nmap <silent> <C-]> <Plug>(ale_next_wrap)
 
@@ -274,6 +279,10 @@ autocmd FileType agsv nnoremap <buffer> ot
 " clipboard
 " Linux requires 'apt-get install xclip'
 set clipboard+=unnamedplus
+
+let g:netrw_browsex_viewer="xdg-open"
+
+autocmd BufNewFile,BufRead *.mmd set filetype=sequence
 
 " Configure vim-pencil
 let g:pencil#wrapModeDefault = 'soft'   " default is 'hard'
