@@ -213,7 +213,7 @@ let g:ale_sign_error = '✗'
 let g:ale_sign_warning = '⚠'
 let g:airline#extensions#ale#enabled = 1
 let b:ale_fixers = {'javascript': ['eslint']}
-let b:ale_linters = {'javascript': ['eslint']}
+let b:ale_linters = {'javascript': ['eslint'], 'yaml': ['yamllint']}
 nmap <silent> <C-[> <Plug>(ale_previous_wrap)
 nmap <silent> <C-]> <Plug>(ale_next_wrap)
 
