@@ -52,6 +52,7 @@ Plug 'aklt/plantuml-syntax'
 Plug 'sile-typesetter/vim-sile'
 Plug 'jparise/vim-graphql'
 Plug 'zhaozg/vim-diagram'
+Plug 'flowtype/vim-flow'
 
 
 " Code folding for Python
