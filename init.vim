@@ -44,8 +44,6 @@ Plug 'digitaltoad/vim-pug'
 Plug 'ekalinin/Dockerfile.vim'
 Plug 'vim-scripts/groovy.vim'
 Plug 'MaxMEllon/vim-jsx-pretty'
-Plug 'junegunn/goyo.vim'
-Plug 'junegunn/limelight.vim'
 Plug 'amadeus/vim-mjml'
 Plug 'leafgarland/typescript-vim'
 Plug 'aklt/plantuml-syntax'
@@ -64,9 +62,18 @@ Plug 'joegesualdo/jsdoc.vim'
 " Ctags tagbar
 Plug 'majutsushi/tagbar'
 
+" Prose mode/writing
+"
 " Allow better soft-wrapping of text in prose-based
 " formats e.g. markdown.
 Plug 'reedes/vim-pencil'
+Plug 'junegunn/goyo.vim' " Full screen writing mode
+Plug 'junegunn/limelight.vim' " Highlights only active paragraph
+Plug 'reedes/vim-lexical' " Better spellcheck mappings
+Plug 'reedes/vim-litecorrect' " Better autocorrections
+Plug 'kana/vim-textobj-user' " dependency for textobj-sentence
+Plug 'reedes/vim-textobj-sentence' " Treat sentences as text objects
+Plug 'reedes/vim-wordy' " Weasel words and passive voice
 
 " The all-important colorscheme
 Plug 'morhetz/gruvbox'
@@ -309,9 +316,23 @@ let g:airline_section_x = '%{PencilMode()}'
 
 " Editorconfig exceptions
 let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
+let g:EditorConfig_disable_rules = ['max_line_length']
 
 " configuring colours
 "
+
+" writing and text file plugin config
+augroup writing
+  autocmd!
+  autocmd FileType markdown,mkd call lexical#init()
+  autocmd FileType text call lexical#init()
+
+  autocmd FileType markdown,mkd call litecorrect#init()
+  autocmd FileType text call litecorrect#init()
+
+  autocmd FileType markdown call textobj#sentence#init()
+  autocmd FileType text call textobj#sentence#init()
+augroup END
 
 " Prose mode
 let g:prose_mode = 0
