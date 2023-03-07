@@ -9,7 +9,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 "Plug 'scrooloose/syntastic'
 Plug 'dense-analysis/ale'
-Plug 'scrooloose/nerdcommenter'
+"Plug 'scrooloose/nerdcommenter'
 Plug 'vim-airline/vim-airline'
 Plug 'tpope/vim-surround'
 Plug 'jiangmiao/auto-pairs'
@@ -74,6 +74,7 @@ Plug 'reedes/vim-litecorrect' " Better autocorrections
 Plug 'kana/vim-textobj-user' " dependency for textobj-sentence
 Plug 'reedes/vim-textobj-sentence' " Treat sentences as text objects
 Plug 'reedes/vim-wordy' " Weasel words and passive voice
+Plug 'ron89/thesaurus_query.vim'
 
 " The all-important colorscheme
 Plug 'morhetz/gruvbox'
@@ -318,10 +319,32 @@ let g:airline_section_x = '%{PencilMode()}'
 let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 let g:EditorConfig_disable_rules = ['max_line_length']
 
+nmap <leader>s :Scratch<CR>
+
 " configuring colours
 "
 
 " writing and text file plugin config
+" Commands:
+"   <leader>p   - enter prose mode (clean writing mode)
+"   <leader>ct  - thesaurus lookup alternatives for current word
+"
+"   Navigation
+"   )           - move to start of next sentance
+"   (           - move to start of previous sentance
+"   g)          - jump to end of current sentence
+"   g(          - jump to end of previous sentence
+"   as          - select 'around' sentance (includes trailing ws)
+"   is          - select 'inside' sentance (excludes trailing ws)
+"
+"   Spelling
+"   z=          - open spelling suggestions
+"   zG          - accept spelling for this session
+"   zg          - accept spelling and add to personal dictionary
+"   zW          - treat as misspelling for this session
+"   zw          - treat as misspelling and add to personal dictionary
+
+
 augroup writing
   autocmd!
   autocmd FileType markdown,mkd call lexical#init()
@@ -389,5 +412,33 @@ autocmd! User GoyoLeave call <SID>goyo_leave()
 command! ProseMode call ProseMode()
 nmap <leader>p :ProseMode<CR>
 
-nmap <leader>s :Scratch<CR>
+nnoremap <leader>ct :ThesaurusQueryLookupCurrentWord<CR>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Here begins my automated wordcount addition.
+" This combines several ideas from:
+" http://stackoverflow.com/questions/114431/fast-word-count-function-in-vim
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:word_count="<unknown>"
+function WordCount()
+   return g:word_count
+endfunction
+function UpdateWordCount()
+   let lnum = 1
+   let n = 0
+   while lnum <= line('$')
+       let n = n + len(split(getline(lnum)))
+       let lnum = lnum + 1
+   endwhile
+   let g:word_count = n
+endfunction
+" Update the count when cursor is idle in command or insert mode.
+" Update when idle for 1000 msec (default is 4000 msec).
+set updatetime=1000
+augroup WordCounter
+   au! CursorHold,CursorHoldI * call UpdateWordCount()
+  " Set statusline, shown here a piece at a time
+  highlight User1 ctermbg=green guibg=green ctermfg=black guifg=black
+  autocmd FileType text set statusline+=\ %{WordCount()}\ words,
+augroup END
 
