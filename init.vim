@@ -300,8 +300,8 @@ autocmd BufNewFile,BufRead *.mmd set filetype=sequence
 let g:pencil#wrapModeDefault = 'soft'   " default is 'hard'
 augroup pencil
   autocmd!
-  autocmd FileType markdown,mkd,txt
-                            \   call pencil#init({ 'wrap': 'soft' })
+  autocmd FileType markdown,mkd,text
+                            \   call pencil#init({ 'wrap': 'soft', 'textwidth':  80 })
                             \ | setl spell spl=en_us fdl=4 noru nonu nornu
                             \ | setl fdo+=search
   autocmd Filetype git,gitsendemail,*commit*,*COMMIT*
@@ -390,6 +390,7 @@ function! s:goyo_enter()
   let g:loaded_airline = 0
   set eventignore=FocusGained
   Limelight
+  GitGutterDisable
 endfunction
 
 function! s:goyo_leave()
@@ -404,6 +405,7 @@ function! s:goyo_leave()
   let g:loaded_airline = 1
   set eventignore=
   Limelight!
+  GitGutterEnable
 endfunction
 
 autocmd! User GoyoEnter call <SID>goyo_enter()
