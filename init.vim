@@ -51,6 +51,7 @@ Plug 'sile-typesetter/vim-sile'
 Plug 'jparise/vim-graphql'
 Plug 'zhaozg/vim-diagram'
 Plug 'flowtype/vim-flow'
+Plug 'lepture/vim-jinja'
 
 
 " Code folding for Python
@@ -227,6 +228,8 @@ let b:ale_linters = {'javascript': ['eslint'], 'yaml': ['yamllint']}
 " <C-}> is used as Control-Shift-]
 nmap <silent> <C-}> <Plug>(ale_previous_wrap)
 nmap <silent> <C-]> <Plug>(ale_next_wrap)
+
+au BufReadPost *.njk set syntax=jinja
 
 let g:jsx_ext_required = 0
 
