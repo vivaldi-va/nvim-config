@@ -302,15 +302,15 @@ augroup pencil
   autocmd!
   autocmd FileType markdown,mkd,text
                             \   call pencil#init({ 'wrap': 'soft', 'textwidth':  80 })
-                            \ | setl spell spl=en_us fdl=4 noru nonu nornu
+                            \ | setl spell spl=en_gb fdl=4 noru nonu nornu
                             \ | setl fdo+=search
   autocmd Filetype git,gitsendemail,*commit*,*COMMIT*
                             \   call pencil#init({'wrap': 'soft', 'textwidth': 72})
-                            \ | setl spell spl=en_us et sw=2 ts=2 noai
+                            \ | setl spell spl=en_gb et sw=2 ts=2 noai
   autocmd Filetype mail         call pencil#init({'wrap': 'hard', 'textwidth': 60})
-                            \ | setl spell spl=en_us et sw=2 ts=2 noai nonu nornu
+                            \ | setl spell spl=en_gb et sw=2 ts=2 noai nonu nornu
   autocmd Filetype html,xml     call pencil#init({'wrap': 'soft'})
-                            \ | setl spell spl=en_us et sw=2 ts=2
+                            \ | setl spell spl=en_gb et sw=2 ts=2
 augroup END
 
 let g:airline_section_x = '%{PencilMode()}'
