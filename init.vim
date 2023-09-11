@@ -222,8 +222,9 @@ let g:flake8_ignore="E128,E501"
 let g:ale_sign_error = '✗'
 let g:ale_sign_warning = '⚠'
 let g:airline#extensions#ale#enabled = 1
-let b:ale_fixers = {'javascript': ['eslint']}
-let b:ale_linters = {'javascript': ['eslint'], 'yaml': ['yamllint']}
+let g:ale_fix_on_save = 1
+let b:ale_fixers = {'javascript': ['eslint', 'prettier'], 'typescript': ['eslint', 'prettier'], 'typescriptreact': ['eslint', 'prettier']}
+let b:ale_linters = {'javascript': ['eslint'], 'typescript': ['eslint'], 'typescriptreact': ['eslint', 'prettier'], 'yaml': ['yamllint']}
 " keyboard commands to skip to next ALE error
 " note: <C-[> is mapped as an equivalent to ESC, so
 " <C-}> is used as Control-Shift-]
