@@ -254,6 +254,7 @@ let g:airline#extensions#tabline#show_splits = 0
 
 " Line numbers
 set number
+nnoremap <silent> <F3> :exec &nu==&rnu? "se nu!" : "se rnu!"<CR>
 
 filetype plugin indent on
 
