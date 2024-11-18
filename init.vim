@@ -64,6 +64,14 @@ Plug 'joegesualdo/jsdoc.vim'
 " Ctags tagbar
 Plug 'majutsushi/tagbar'
 
+" Git
+" Can't get these to work, neovim doesn't play nice with xdg-open for some
+" reason
+"Plug 'tyru/open-browser.vim'
+"Plug 'tyru/open-browser-github.vim'
+" Plug 'Almo7aya/openingh.nvim', { 'branch': 'main' }
+Plug 'knsh14/vim-github-link'
+
 " Prose mode/writing
 "
 " Allow better soft-wrapping of text in prose-based
