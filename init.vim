@@ -207,32 +207,14 @@ autocmd VimEnter * call Nerd()
 " Syntax checker options
 let g:flake8_ignore="E128,E501"
 
-" Syntastic settings
-" set statusline+=%#warningmsg#
-" set statusline+=%{SyntasticStatuslineFlag()}
-" set statusline+=%*
-" let g:syntastic_auto_jump = 0
-" let g:syntastic_enable_signs = 1
-" let g:syntastic_error_symbol = "✗"
-" let g:syntastic_warning_symbol = "⚠"
-" let g:syntastic_always_populate_loc_list = 1
-" let g:syntastic_auto_loc_list = 0
-" let g:syntastic_check_on_open = 1
-" let g:syntastic_check_on_wq = 0
-" let g:syntastic_aggregate_errors = 1
-"
-" let g:syntastic_python_checkers = ['flake8']
-" let g:syntastic_disabled_filetypes=['html', 'jinja']
-" let g:syntastic_python_flake8_args='--ignore=E501,E128'
-" let g:syntastic_scss_checkers = ['scss_lint']
-
 " ALE settings
 let g:ale_sign_error = '✗'
 let g:ale_sign_warning = '⚠'
 let g:airline#extensions#ale#enabled = 1
 let g:ale_fix_on_save = 1
-let b:ale_fixers = {'javascript': ['eslint', 'prettier'], 'typescript': ['eslint', 'prettier'], 'typescriptreact': ['eslint', 'prettier']}
-let b:ale_linters = {'javascript': ['eslint'], 'typescript': ['eslint'], 'typescriptreact': ['eslint', 'prettier'], 'yaml': ['yamllint']}
+let g:ale_fixers = {'javascript': ['eslint', 'prettier'], 'typescript': ['eslint', 'prettier'], 'typescriptreact': ['eslint', 'prettier']}
+" let b:ale_linters = {'javascript': ['eslint'], 'typescript': ['eslint'], 'typescriptreact': ['eslint', 'prettier'], 'yaml': ['yamllint']}
+let b:ale_linters = {'javascript': ['eslint'], 'yaml': ['yamllint']}
 " keyboard commands to skip to next ALE error
 " note: <C-[> is mapped as an equivalent to ESC, so
 " <C-}> is used as Control-Shift-]
