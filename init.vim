@@ -221,6 +221,12 @@ let b:ale_linters = {'javascript': ['eslint'], 'yaml': ['yamllint']}
 nmap <silent> <C-}> <Plug>(ale_previous_wrap)
 nmap <silent> <C-]> <Plug>(ale_next_wrap)
 
+" configure filetypes, e.g. disable for specific things
+" * go: ALE doesn't play well with vim-go's GoFmt and causes freezes
+let g:ale_pattern_options = {
+      \ '.*\.go$': {'ale_enabled': 0},
+      \}
+
 au BufReadPost *.njk set syntax=jinja
 
 let g:jsx_ext_required = 0
