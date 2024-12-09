@@ -355,6 +355,7 @@ augroup END
 
 " Prose mode
 let g:prose_mode = 0
+let g:nerd_return = 0
 
 function! ProseMode()
   set spell noci nosi noai nolist noshowmode noshowcmd
@@ -362,6 +363,7 @@ function! ProseMode()
   if !g:prose_mode
     let g:prose_mode = 1
     if exists('g:NERDTree') && g:NERDTree.IsOpen()
+      let g:nerd_return = 1
       NERDTreeTabsClose
     endif
     Goyo
@@ -370,8 +372,11 @@ function! ProseMode()
   else
     let g:prose_mode = 0
     Goyo!
-    NERDTree
-    NERDTreeTabsOpen
+    if g:nerd_return
+      NERDTree
+      NERDTreeTabsOpen
+      let g:nerd_return = 0
+    endif
   endif
 endfunction
 
