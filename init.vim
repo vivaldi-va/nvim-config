@@ -53,6 +53,7 @@ Plug 'jparise/vim-graphql'
 Plug 'zhaozg/vim-diagram'
 Plug 'flowtype/vim-flow'
 Plug 'lepture/vim-jinja'
+Plug 'sheerun/vim-polyglot'
 
 
 " Code folding for Python
