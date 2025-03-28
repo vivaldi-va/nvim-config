@@ -55,6 +55,10 @@ Plug 'flowtype/vim-flow'
 Plug 'lepture/vim-jinja'
 Plug 'sheerun/vim-polyglot'
 
+"Plug 'Exafunction/codeium.vim', { 'branch': 'main' }
+Plug 'github/copilot.vim'
+" Plug 'zbirenbaum/copilot.lua'
+Plug 'jonahgoldwastaken/copilot-status.nvim'
 
 " Code folding for Python
 Plug 'tmhedberg/SimpylFold'
@@ -235,6 +239,24 @@ let g:jsx_ext_required = 0
 hi Search ctermfg=0 ctermbg=11 guifg=Black guibg=Yellow
 hi SpellBad ctermfg=15 ctermbg=9 guifg=White guibg=Red
 hi Folded term=bold ctermfg=85 ctermbg=234 gui=bold guifg=#9cffd3 guibg=#202020
+
+" Code completion
+
+" disable by default
+" vim.g.copilot_filetypes = {
+" 	["*"] = false,
+" }
+let g:copilot_filetypes = { '*': v:false }
+
+" explicitly request for copilot suggestions on Ctrl-Enter
+"vim.keymap.set('i', '<C-CR>', '<Plug>(copilot-suggest)')
+" inoremap <M-CR> <Plug>(copilot-suggest)
+
+" fix suggestions etc. persisting after Ctrl-C
+" https://github.com/orgs/community/discussions/77719#discussioncomment-8016504
+inoremap <c-c> <esc>
+
+" plugin docs and bind: https://github.com/github/copilot.vim/blob/release/doc/copilot.txt#L152
 
 " Map main trigger for fuzzy file finder
 let g:fzf_height = '30%'
