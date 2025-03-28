@@ -3,12 +3,12 @@
 call plug#begin('~/.config/nvim/plugged')
 
 " General
-Plug 'Xuyuanp/nerdtree-git-plugin' | Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+Plug 'Xuyuanp/nerdtree-git-plugin' | Plug 'preservim/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'jistr/vim-nerdtree-tabs'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 "Plug 'scrooloose/syntastic'
-Plug 'dense-analysis/ale'
+Plug 'dense-analysis/ale', { 'tag': 'v3.3.0' }
 "Plug 'scrooloose/nerdcommenter'
 Plug 'vim-airline/vim-airline'
 Plug 'tpope/vim-surround'
