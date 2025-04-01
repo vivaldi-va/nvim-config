@@ -7,9 +7,7 @@ Plug 'Xuyuanp/nerdtree-git-plugin' | Plug 'preservim/nerdtree', { 'on':  'NERDTr
 Plug 'jistr/vim-nerdtree-tabs'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
-"Plug 'scrooloose/syntastic'
 Plug 'dense-analysis/ale', { 'tag': 'v3.3.0' }
-"Plug 'scrooloose/nerdcommenter'
 Plug 'vim-airline/vim-airline'
 Plug 'tpope/vim-surround'
 Plug 'jiangmiao/auto-pairs'
@@ -18,7 +16,6 @@ Plug 'kshenoy/vim-signature'
 Plug 'mattn/emmet-vim'
 Plug 'ap/vim-css-color'
 Plug 'triglav/vim-visual-increment'
-"Plug 'vivaldi-va/tabline.vim'
 Plug 'mtth/scratch.vim'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'mzlogin/vim-markdown-toc'
@@ -55,14 +52,6 @@ Plug 'flowtype/vim-flow'
 Plug 'lepture/vim-jinja'
 Plug 'sheerun/vim-polyglot'
 
-"Plug 'Exafunction/codeium.vim', { 'branch': 'main' }
-Plug 'github/copilot.vim'
-" Plug 'zbirenbaum/copilot.lua'
-Plug 'jonahgoldwastaken/copilot-status.nvim'
-
-" Code folding for Python
-Plug 'tmhedberg/SimpylFold'
-
 " Javascript stuff
 Plug 'joegesualdo/jsdoc.vim'
 
@@ -90,11 +79,22 @@ Plug 'kana/vim-textobj-user' " dependency for textobj-sentence
 Plug 'reedes/vim-textobj-sentence' " Treat sentences as text objects
 Plug 'reedes/vim-wordy' " Weasel words and passive voice
 Plug 'ron89/thesaurus_query.vim'
+Plug 'pocco81/true-zen.nvim'
 
 " The all-important colorscheme
 Plug 'morhetz/gruvbox'
 
+" AI garbage
+"Plug 'Exafunction/codeium.vim', { 'branch': 'main' }
+Plug 'github/copilot.vim'
+" Plug 'zbirenbaum/copilot.lua'
+Plug 'jonahgoldwastaken/copilot-status.nvim'
+
 call plug#end()
+
+"
+" Config starts here
+"
 
 " Colorscheme
 let  g:gruvbox_italic=1
@@ -300,11 +300,6 @@ let g:go_highlight_structs = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
 let g:go_fmt_command = "goimports"
-
-" Code folding for pythonm
-let g:SimpylFold_docstring_preview = 1
-autocmd BufWinEnter *.py setlocal foldexpr=SimpylFold(v:lnum) foldmethod=expr
-autocmd BufWinLeave *.py setlocal foldexpr< foldmethod<
 
 " Automatically strip trailing whitespace
 autocmd BufWritePre * :%s/\s\+$//e
