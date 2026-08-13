@@ -1,3 +1,4 @@
 plugged/*
 *.save
 .netrwhist
+*.old

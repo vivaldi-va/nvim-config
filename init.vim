@@ -7,7 +7,7 @@ Plug 'Xuyuanp/nerdtree-git-plugin' | Plug 'preservim/nerdtree', { 'on':  'NERDTr
 Plug 'jistr/vim-nerdtree-tabs'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
-Plug 'dense-analysis/ale', { 'tag': 'v3.3.0' }
+Plug 'dense-analysis/ale'
 Plug 'vim-airline/vim-airline'
 Plug 'tpope/vim-surround'
 Plug 'jiangmiao/auto-pairs'
@@ -46,11 +46,20 @@ Plug 'leafgarland/typescript-vim'
 Plug 'peitalin/vim-jsx-typescript'
 Plug 'aklt/plantuml-syntax'
 Plug 'sile-typesetter/vim-sile'
-Plug 'jparise/vim-graphql'
+"Plug 'jparise/vim-graphql'
 Plug 'zhaozg/vim-diagram'
 Plug 'flowtype/vim-flow'
 Plug 'lepture/vim-jinja'
 Plug 'sheerun/vim-polyglot'
+
+" autocomplete and assistance
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Plug 'pmizio/typescript-tools.nvim' | Plug 'nvim-lua/plenary.nvim'
+
+" LSP & Completion
+Plug 'Sebastian-Nielsen/better-type-hover', { 'do': 'npm install -g @vtsls/language-server' }
+Plug 'neovim/nvim-lspconfig'
+
 
 " Javascript stuff
 Plug 'joegesualdo/jsdoc.vim'
@@ -82,7 +91,9 @@ Plug 'ron89/thesaurus_query.vim'
 Plug 'pocco81/true-zen.nvim'
 
 " The all-important colorscheme
-Plug 'morhetz/gruvbox'
+" unmaintained, using fork below instead (rip)
+" Plug 'morhetz/gruvbox'
+ Plug 'gruvbox-community/gruvbox'
 
 " AI garbage
 "Plug 'Exafunction/codeium.vim', { 'branch': 'main' }
@@ -91,6 +102,20 @@ Plug 'github/copilot.vim'
 Plug 'jonahgoldwastaken/copilot-status.nvim'
 
 call plug#end()
+
+" Lua plugin configs
+lua vim.lsp.enable('tsserver')
+lua vim.lsp.config('tsserver', {
+      "\ cmd = {'tsc', '--lsp', '--stdio'},
+      \ cmd = {'vtsls', '--stdio'},
+      \ filetypes = { 'typescript', 'typescriptreact' },
+      \ root_dir = vim.fs.root(0, {'package.json', '.git'}),
+      \ on_attach = on_attach,
+      \ capabilities = capabilities,
+      \ })
+ lua require('better-type-hover').setup({
+       \ openTypeDocKeymap = "<C-k>",
+       \})
 
 "
 " Config starts here
@@ -107,6 +132,8 @@ augroup BgHighlight
   autocmd WinEnter * set cul
   autocmd WinLeave * set nocul
 augroup END
+
+lua vim.o.winborder = 'rounded'
 
 " All key mappings
 """"""""""""""""""
@@ -217,14 +244,23 @@ let g:ale_sign_error = '✗'
 let g:ale_sign_warning = '⚠'
 let g:airline#extensions#ale#enabled = 1
 let g:ale_fix_on_save = 1
+let g:ale_floating_preview = 1
 let g:ale_fixers = {'javascript': ['eslint', 'prettier'], 'typescript': ['eslint', 'prettier'], 'typescriptreact': ['eslint', 'prettier']}
-" let b:ale_linters = {'javascript': ['eslint'], 'typescript': ['eslint'], 'typescriptreact': ['eslint', 'prettier'], 'yaml': ['yamllint']}
-let b:ale_linters = {'javascript': ['eslint'], 'yaml': ['yamllint']}
+" let g:ale_linters = {'javascript': ['eslint'], 'typescript': ['eslint'], 'typescriptreact': ['eslint', 'prettier'], 'yaml': ['yamllint']}
+let g:ale_linters = {'javascript': ['eslint', 'tsserver'], 'yaml': ['yamllint']}
+let b:ale_linters_ignore = ['tslint']
 " keyboard commands to skip to next ALE error
 " note: <C-[> is mapped as an equivalent to ESC, so
 " <C-}> is used as Control-Shift-]
 nmap <silent> <C-}> <Plug>(ale_previous_wrap)
 nmap <silent> <C-]> <Plug>(ale_next_wrap)
+" noremap K :ALEHover<CR>
+noremap <silent> gr :ALEFindReferences<CR>
+"noremap <silent> gd :ALEGoToDefinition<CR>
+command! GoToDefinition lua vim.lsp.buf.definition()
+command! Hover lua vim.lsp.buf.hover({ border = "single" })
+noremap <silent> gd :GoToDefinition<CR>
+noremap <silent> K :Hover<CR>
 
 " configure filetypes, e.g. disable for specific things
 " * go: ALE doesn't play well with vim-go's GoFmt and causes freezes
@@ -280,6 +316,7 @@ let g:airline#extensions#tabline#show_tab_type = 1
 let g:airline#extensions#tabline#formatter = 'default'
 let g:airline#extensions#tabline#show_buffers = 0
 let g:airline#extensions#tabline#show_splits = 0
+hi statusline cterm=NONE gui=NONE
 
 " Line numbers
 set number
