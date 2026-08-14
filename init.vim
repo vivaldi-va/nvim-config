@@ -400,6 +400,14 @@ nmap <leader>s :Scratch<CR>
 "   zg          - accept spelling and add to personal dictionary
 "   zW          - treat as misspelling for this session
 "   zw          - treat as misspelling and add to personal dictionary
+"
+"   Grammar
+"   Wordy docs: https://github.com/preservim/vim-wordy
+"   ,w            - Cycle wordy
+"   ,W            - End wordy
+"   F8            - Next wordy dictionary
+"   ]s            - Next Wordy flag
+"   [s            - Prev Wordy flag
 
 
 augroup writing
@@ -410,7 +418,7 @@ augroup writing
   autocmd FileType markdown,mkd call litecorrect#init()
   autocmd FileType text call litecorrect#init()
 
-  autocmd FileType markdown call textobj#sentence#init()
+  autocmd FileType markdown,mkd call textobj#sentence#init()
   autocmd FileType text call textobj#sentence#init()
 augroup END
 
@@ -477,6 +485,10 @@ command! ProseMode call ProseMode()
 nmap <leader>p :ProseMode<CR>
 
 nnoremap <leader>ct :ThesaurusQueryLookupCurrentWord<CR>
+
+nnoremap <leader>w :Wordy<space>
+nnoremap <F8> :NextWordy<CR>
+nnoremap <leader>W :NoWordy<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Here begins my automated wordcount addition.
