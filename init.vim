@@ -42,8 +42,8 @@ Plug 'ekalinin/Dockerfile.vim'
 Plug 'vim-scripts/groovy.vim'
 Plug 'MaxMEllon/vim-jsx-pretty'
 Plug 'amadeus/vim-mjml'
-Plug 'leafgarland/typescript-vim'
-Plug 'peitalin/vim-jsx-typescript'
+" Plug 'leafgarland/typescript-vim'
+"Plug 'peitalin/vim-jsx-typescript'
 Plug 'aklt/plantuml-syntax'
 Plug 'sile-typesetter/vim-sile'
 "Plug 'jparise/vim-graphql'
@@ -97,25 +97,29 @@ Plug 'pocco81/true-zen.nvim'
 
 " AI garbage
 "Plug 'Exafunction/codeium.vim', { 'branch': 'main' }
-Plug 'github/copilot.vim'
+" Plug 'github/copilot.vim'
 " Plug 'zbirenbaum/copilot.lua'
-Plug 'jonahgoldwastaken/copilot-status.nvim'
+" Plug 'jonahgoldwastaken/copilot-status.nvim'
 
 call plug#end()
 
 " Lua plugin configs
 lua vim.lsp.enable('tsserver')
 lua vim.lsp.config('tsserver', {
-      "\ cmd = {'tsc', '--lsp', '--stdio'},
-      \ cmd = {'vtsls', '--stdio'},
+      \ cmd = {'tsc', '--lsp', '--stdio'},
+      "\ cmd = {'vtsls', '--stdio'},
       \ filetypes = { 'typescript', 'typescriptreact' },
       \ root_dir = vim.fs.root(0, {'package.json', '.git'}),
       \ on_attach = on_attach,
       \ capabilities = capabilities,
       \ })
- lua require('better-type-hover').setup({
-       \ openTypeDocKeymap = "<C-k>",
-       \})
+lua require('better-type-hover').setup({
+ \ openTypeDocKeymap = "K",
+ \})
+lua vim.lsp.enable('gopls')
+lua vim.lsp.config('gopls', {
+      \ filetypes = { 'go' }
+      \ })
 
 "
 " Config starts here
@@ -260,7 +264,7 @@ noremap <silent> gr :ALEFindReferences<CR>
 command! GoToDefinition lua vim.lsp.buf.definition()
 command! Hover lua vim.lsp.buf.hover({ border = "single" })
 noremap <silent> gd :GoToDefinition<CR>
-noremap <silent> K :Hover<CR>
+" noremap <silent> K :Hover<CR>
 
 " configure filetypes, e.g. disable for specific things
 " * go: ALE doesn't play well with vim-go's GoFmt and causes freezes
@@ -282,7 +286,7 @@ hi Folded term=bold ctermfg=85 ctermbg=234 gui=bold guifg=#9cffd3 guibg=#202020
 " vim.g.copilot_filetypes = {
 " 	["*"] = false,
 " }
-let g:copilot_filetypes = { '*': v:false }
+" let g:copilot_filetypes = { '*': v:false }
 
 " explicitly request for copilot suggestions on Ctrl-Enter
 "vim.keymap.set('i', '<C-CR>', '<Plug>(copilot-suggest)')
@@ -351,7 +355,12 @@ set clipboard+=unnamedplus
 
 let g:netrw_browsex_viewer="xdg-open"
 
+"""
+" filetype definitions
+"""
 autocmd BufNewFile,BufRead *.mmd set filetype=sequence
+autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescriptreact
+
 
 " Configure vim-pencil
 let g:pencil#wrapModeDefault = 'soft'   " default is 'hard'
