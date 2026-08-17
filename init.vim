@@ -74,6 +74,7 @@ Plug 'majutsushi/tagbar'
 "Plug 'tyru/open-browser-github.vim'
 " Plug 'Almo7aya/openingh.nvim', { 'branch': 'main' }
 Plug 'knsh14/vim-github-link'
+Plug 'linrongbin16/gitlinker.nvim'
 
 " Prose mode/writing
 "
@@ -242,6 +243,9 @@ autocmd VimEnter * call Nerd()
 
 " Syntax checker options
 let g:flake8_ignore="E128,E501"
+
+" Github links
+noremap <leader>g :GitLink default_branch<CR>
 
 " ALE settings
 let g:ale_sign_error = '✗'
