@@ -2,3 +2,5 @@ plugged/*
 *.save
 .netrwhist
 *.old
+*.log
+.*_files

@@ -29,7 +29,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 
 " Syntax highlighting
 Plug 'saltstack/salt-vim'
-Plug 'stephpy/vim-yaml'
+"Plug 'stephpy/vim-yaml'
 Plug 'fatih/vim-go'
 Plug 'Glench/Vim-Jinja2-Syntax'
 Plug 'pangloss/vim-javascript'
@@ -59,6 +59,9 @@ Plug 'sheerun/vim-polyglot'
 " LSP & Completion
 Plug 'Sebastian-Nielsen/better-type-hover', { 'do': 'npm install -g @vtsls/language-server' }
 Plug 'neovim/nvim-lspconfig'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'mattn/vim-lsp-settings'
+Plug 'rhysd/vim-lsp-ale'
 
 
 " Javascript stuff
@@ -108,12 +111,12 @@ call plug#end()
 lua vim.lsp.enable('tsserver')
 lua vim.lsp.config('tsserver', {
       \ cmd = {'tsc', '--lsp', '--stdio'},
-      "\ cmd = {'vtsls', '--stdio'},
       \ filetypes = { 'typescript', 'typescriptreact' },
       \ root_dir = vim.fs.root(0, {'package.json', '.git'}),
       \ on_attach = on_attach,
       \ capabilities = capabilities,
       \ })
+      "\ cmd = {'vtsls', '--stdio'},
 lua require('better-type-hover').setup({
  \ openTypeDocKeymap = "K",
  \})
@@ -121,6 +124,8 @@ lua vim.lsp.enable('gopls')
 lua vim.lsp.config('gopls', {
       \ filetypes = { 'go' }
       \ })
+let g:lsp_log_verbose = 0
+let g:lsp_log_file = expand('~/.config/nvim/vim-lsp.log')
 
 "
 " Config starts here
@@ -260,8 +265,11 @@ let b:ale_linters_ignore = ['tslint']
 " keyboard commands to skip to next ALE error
 " note: <C-[> is mapped as an equivalent to ESC, so
 " <C-}> is used as Control-Shift-]
-nmap <silent> <C-}> <Plug>(ale_previous_wrap)
-nmap <silent> <C-]> <Plug>(ale_next_wrap)
+"nmap <silent> <C-K> <Plug>(ale_previous_wrap)
+"nmap <silent> <C-]> <Plug>(ale_next_wrap)
+nmap <silent> <M-k> <Plug>(ale_previous_wrap)
+nmap <silent> <M-j> <Plug>(ale_next_wrap)
+
 " noremap K :ALEHover<CR>
 noremap <silent> gr :ALEFindReferences<CR>
 "noremap <silent> gd :ALEGoToDefinition<CR>
@@ -334,9 +342,15 @@ filetype plugin indent on
 
 
 " Where swap and backup files go
-set backupdir=~/.config/vim/backup_files//
-set directory=~/.config/vim/swap_files//
-set undodir=~/.config/vim/undo_files//
+silent !mkdir -p ~/.config/nvim/.backup_files > /dev/null
+silent !mkdir -p ~/.config/nvim/.swap_files > /dev/null
+silent !mkdir -p ~/.config/nvim/.undo_files > /dev/null
+set backupdir=~/.config/nvim/.backup_files
+set directory=~/.config/nvim/.swap_files
+set undodir=~/.config/nvim/.undo_files
+"set backupdir=~/.config/vim/backup_files//
+"set directory=~/.config/vim/swap_files//
+"set undodir=~/.config/vim/undo_files//
 
 " Vim-Golang plugin configs
 let g:go_highlight_functions = 1
