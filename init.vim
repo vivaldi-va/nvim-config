@@ -1,5 +1,21 @@
 " File ~/.vimrc
 
+" useful vim/neovim commands for reference
+" because i'll inevitably forget them
+"
+" Big reference:
+" https://neovim.io/doc/user/vimindex
+"
+" Quick reference:
+" https://neovim.io/doc/user/quickref/
+"
+"  Diagnostics
+"  ]d jumps to the next diagnostic in the buffer.
+"  [d jumps to the previous diagnostic in the buffer.
+"  ]D jumps to the last diagnostic in the buffer.
+"  [D jumps to the first diagnostic in the buffer.
+"  <C-w>d shows diagnostic at cursor in a floating window.
+
 call plug#begin('~/.config/nvim/plugged')
 
 " General
