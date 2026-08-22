@@ -4,7 +4,10 @@ call plug#begin('~/.config/nvim/plugged')
 
 " General
 Plug 'Xuyuanp/nerdtree-git-plugin' | Plug 'preservim/nerdtree', { 'on':  'NERDTreeToggle' }
-Plug 'jistr/vim-nerdtree-tabs'
+" nerdtree-tabs is unmaintained, my own fork includes a fix for
+" closing multiple tabs without exploding
+"Plug 'jistr/vim-nerdtree-tabs'
+Plug 'vivaldi-va/vim-nerdtree-tabs'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'dense-analysis/ale'
@@ -22,7 +25,8 @@ Plug 'mzlogin/vim-markdown-toc'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
 
 " In-file searching ala 'ack'
-Plug 'gabesoft/vim-ags'
+Plug 'tpope/vim-dispatch' | Plug 'gabesoft/vim-ags'
+
 
 " Fuzzy file finder
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
@@ -166,6 +170,9 @@ set hidden
 " don't need the mode to show since it's in the status line
 set noshowmode
 
+" disable folding
+set nofoldenable
+
 " since I constantly accidentally mess these up when going fast
 command! WQ wq
 command! Wq wq
@@ -238,10 +245,11 @@ let NERDTreeIgnore = ['\.pyc$', '\.egg$', '\.o$', '\~$', '__pycache__$', '\.egg-
 let NERDTreeShowHidden=1
 
 function! Nerd()
-  if argc() == 0 && !exists("s:std_in")
-    NERDTree
-    NERDTreeTabsOpen
-  endif
+      if argc() == 0 && !exists('s:std_in')
+            NERDTree
+            NERDTreeTabsOpen
+            wincmd p
+      endif
 endfunction
 
 autocmd VimEnter * call Nerd()
