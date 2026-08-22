@@ -474,28 +474,28 @@ augroup writing
 augroup END
 
 " Prose mode
-let g:prose_mode = 0
-let g:nerd_return = 0
+let w:prose_mode = 0
+let w:nerd_return = 0
 
 function! ProseMode()
-  set spell noci nosi noai nolist noshowmode noshowcmd
-  set complete+=s
-  if !g:prose_mode
-    let g:prose_mode = 1
+  setlocal spell "noci nosi noai nolist noshowmode noshowcmd
+  setlocal complete+=s
+  if get(w:, 'prose_mode', 0) == 0
     if exists('g:NERDTree') && g:NERDTree.IsOpen()
-      let g:nerd_return = 1
+      let w:nerd_return = 1
       NERDTreeTabsClose
     endif
     Goyo
     SoftPencil
-
+    let w:prose_mode = 1
   else
-    let g:prose_mode = 0
+    let w:prose_mode = 0
     Goyo!
-    if g:nerd_return
-      NERDTree
-      NERDTreeTabsOpen
-      let g:nerd_return = 0
+    setlocal nospell
+    PencilOff
+    if get(w:, 'nerd_return', 0) == 1
+      call Nerd()
+      let w:nerd_return = 0
     endif
   endif
 endfunction
@@ -523,6 +523,12 @@ function! s:goyo_leave()
       qa
     endif
   endif
+  if executable('tmux') && strlen($TMUX)
+    silent !tmux set status on
+    silent !tmux list-panes -F '\#F' | grep -q Z && tmux resize-pane -Z
+  endif
+  set showcmd
+  hi statusline cterm=NONE gui=NONE
   let g:loaded_airline = 1
   set eventignore=
   Limelight!
