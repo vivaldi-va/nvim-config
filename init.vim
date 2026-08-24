@@ -9,6 +9,15 @@
 " Quick reference:
 " https://neovim.io/doc/user/quickref/
 "
+"  LSP and related
+"  n K - hover symbol
+"  n grt - go to type definition
+"  n grt - go to implementation
+"  n gra - code action
+"  n C-t - jump back from open definition (tabstack)
+"  n C-i - jump forward
+"  n C-w d - show diagnostics
+"
 "  Diagnostics
 "  ]d jumps to the next diagnostic in the buffer.
 "  [d jumps to the previous diagnostic in the buffer.
@@ -78,10 +87,14 @@ Plug 'sheerun/vim-polyglot'
 
 " LSP & Completion
 Plug 'Sebastian-Nielsen/better-type-hover', { 'do': 'npm install -g @vtsls/language-server' }
+Plug 'mason-org/mason.nvim'
 Plug 'neovim/nvim-lspconfig'
-Plug 'prabirshrestha/vim-lsp'
-Plug 'mattn/vim-lsp-settings'
-Plug 'rhysd/vim-lsp-ale'
+Plug 'mason-org/mason-lspconfig.nvim'
+Plug 'WhoIsSethDaniel/mason-tool-installer.nvim'
+
+"Plug 'prabirshrestha/vim-lsp'
+"Plug 'mattn/vim-lsp-settings'
+"Plug 'rhysd/vim-lsp-ale'
 
 
 " Javascript stuff
@@ -128,22 +141,46 @@ Plug 'pocco81/true-zen.nvim'
 call plug#end()
 
 " Lua plugin configs
-lua vim.lsp.enable('tsserver')
-lua vim.lsp.config('tsserver', {
-      \ cmd = {'tsc', '--lsp', '--stdio'},
-      \ filetypes = { 'typescript', 'typescriptreact' },
-      \ root_dir = vim.fs.root(0, {'package.json', '.git'}),
-      \ on_attach = on_attach,
-      \ capabilities = capabilities,
-      \ })
+"lua vim.lsp.config('tsserver', {
+"      \ cmd = {'tsc', '--lsp', '--stdio'},
+"      \ filetypes = { 'typescript', 'typescriptreact' },
+"      \ root_dir = vim.fs.root(0, {'package.json', '.git'}),
+"      \ on_attach = on_attach,
+"      \ capabilities = capabilities,
+"      \ })
       "\ cmd = {'vtsls', '--stdio'},
+
+" lsp setup from https://dotfiles.substack.com/p/native-lsp-in-neovim-012
+lua require('mason').setup()
+lua require('mason-tool-installer').setup({
+      \  ensure_installed = {
+      \    'tsc',
+      \    'gopls',
+      \    'vimls',
+      \    'emmet-language-server',
+      \ }
+      \})
+lua require('mason-lspconfig').setup({ automatic_enable = false })
+lua vim.lsp.config('tsserver', vim.lsp.config.tsc)
+lua vim.lsp.config('emmet-language-server', vim.lsp.config.emmet_language_server)
+lua vim.lsp.config('vimls', vim.lsp.config.vimls)
+
 lua require('better-type-hover').setup({
  \ openTypeDocKeymap = "K",
  \})
-lua vim.lsp.enable('gopls')
-lua vim.lsp.config('gopls', {
-      \ filetypes = { 'go' }
-      \ })
+lua vim.lsp.config('gopls', vim.lsp.config.gopls)
+
+lua vim.lsp.enable({ 'tsserver', 'emmet-language-server', 'vimls', 'gopls' })
+
+lua local on_attach = function(client, bufnr)
+      \ vim.lsp.completion.enable(true, client.id, bufnr, { autotrigger = true })
+      \ vim.cmd [[set completeopt+=menuone,noselect,popup]]
+      \end
+
+command! GetCompletion lua vim.lsp.completion.get()
+xnoremap <C-n> call GetCompletion<CR>
+"noremap <silent> gd :GoToDefinition<CR>
+
 let g:lsp_log_verbose = 0
 let g:lsp_log_file = expand('~/.config/nvim/vim-lsp.log')
 
