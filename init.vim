@@ -208,6 +208,37 @@ lua vim.o.winborder = 'rounded'
 " Hail to the <leader>
 let mapleader = ","
 
+nmap <leader>s :Scratch<CR>
+
+" Bind to clear search
+"nmap <leader>/ :noh<CR>
+nnoremap <CR> :noh<CR>
+
+
+" NERDTree toggle
+noremap <leader>t :NERDTreeTabsToggle<CR>
+noremap <leader>f :NERDTreeFind<CR>
+nmap <leader>j :<C-u>call JSDocAdd()<CR>
+
+" Map main trigger for fuzzy file finder
+noremap <C-p> :FZF<CR>
+
+" Tagbar/ctags
+nmap <F2> :TagbarToggle<CR>
+
+" Cycle through line number display modes
+nnoremap <silent> <F3> :exec &nu==&rnu? "se nu!" : "se rnu!"<CR>
+
+" Github links
+noremap <leader>g :GitLink default_branch<CR>
+
+" Writing and prose mode
+nmap <leader>p :ProseMode<CR>
+nnoremap <leader>ct :ThesaurusQueryLookupCurrentWord<CR>
+nnoremap <leader>w :Wordy<space>
+nnoremap <F8> :NextWordy<CR>
+nnoremap <leader>W :NoWordy<CR>
+
 " Ignore case in search
 set ignorecase
 set hlsearch
@@ -240,20 +271,6 @@ cmap w!! w !sudo tee >/dev/null %
 " nnoremap <C-L> <C-W><C-L>
 " nnoremap <C-H> <C-W><C-H>
 
-" Bind to clear search
-nmap <leader>/ :noh<CR>
-
-
-" NERDTree toggle
-noremap <leader>t :NERDTreeTabsToggle<CR>
-noremap <leader>f :NERDTreeFind<CR>
-
-" Map main trigger for fuzzy file finder
-noremap <C-p> :FZF<CR>
-
-" Tagbar/ctags
-nmap <F2> :TagbarToggle<CR>
-
 " General code style settings
 set tabstop=2
 set softtabstop=2
@@ -285,8 +302,6 @@ autocmd FileType javascript setlocal colorcolumn=99
 " JSDoc config
 let g:javascript_plugin_jsdoc=1
 
-nmap <leader>j :<C-u>call JSDocAdd()<CR>
-
 
 " JSON
 let g:vim_json_syntax_conceal = 0
@@ -310,8 +325,6 @@ autocmd VimEnter * call Nerd()
 " Syntax checker options
 let g:flake8_ignore="E128,E501"
 
-" Github links
-noremap <leader>g :GitLink default_branch<CR>
 
 " ALE settings
 let g:ale_sign_error = '✗'
@@ -324,19 +337,14 @@ let g:ale_fixers = {'javascript': ['eslint', 'prettier'], 'typescript': ['eslint
 let g:ale_linters = {'javascript': ['eslint', 'tsserver'], 'yaml': ['yamllint']}
 let b:ale_linters_ignore = ['tslint']
 " keyboard commands to skip to next ALE error
-" note: <C-[> is mapped as an equivalent to ESC, so
-" <C-}> is used as Control-Shift-]
-"nmap <silent> <C-K> <Plug>(ale_previous_wrap)
-"nmap <silent> <C-]> <Plug>(ale_next_wrap)
 nmap <silent> <M-k> <Plug>(ale_previous_wrap)
 nmap <silent> <M-j> <Plug>(ale_next_wrap)
 
 " noremap K :ALEHover<CR>
-noremap <silent> gr :ALEFindReferences<CR>
+"noremap <silent> gr :ALEFindReferences<CR>
 "noremap <silent> gd :ALEGoToDefinition<CR>
 command! GoToDefinition lua vim.lsp.buf.definition()
 command! Hover lua vim.lsp.buf.hover({ border = "single" })
-noremap <silent> gd :GoToDefinition<CR>
 " noremap <silent> K :Hover<CR>
 
 " configure filetypes, e.g. disable for specific things
@@ -397,7 +405,6 @@ hi statusline cterm=NONE gui=NONE
 
 " Line numbers
 set number
-nnoremap <silent> <F3> :exec &nu==&rnu? "se nu!" : "se rnu!"<CR>
 
 filetype plugin indent on
 
@@ -464,7 +471,6 @@ let g:airline_section_x = '%{PencilMode()}'
 let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 let g:EditorConfig_disable_rules = ['max_line_length']
 
-nmap <leader>s :Scratch<CR>
 
 " configuring colours
 "
@@ -576,13 +582,6 @@ autocmd! User GoyoEnter call <SID>goyo_enter()
 autocmd! User GoyoLeave call <SID>goyo_leave()
 
 command! ProseMode call ProseMode()
-nmap <leader>p :ProseMode<CR>
-
-nnoremap <leader>ct :ThesaurusQueryLookupCurrentWord<CR>
-
-nnoremap <leader>w :Wordy<space>
-nnoremap <F8> :NextWordy<CR>
-nnoremap <leader>W :NoWordy<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Here begins my automated wordcount addition.
