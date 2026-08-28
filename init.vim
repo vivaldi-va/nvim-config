@@ -34,6 +34,7 @@ Plug 'Xuyuanp/nerdtree-git-plugin' | Plug 'preservim/nerdtree', { 'on':  'NERDTr
 "Plug 'jistr/vim-nerdtree-tabs'
 Plug 'vivaldi-va/vim-nerdtree-tabs'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-obsession'
 Plug 'airblade/vim-gitgutter'
 Plug 'dense-analysis/ale'
 Plug 'vim-airline/vim-airline'
@@ -611,3 +612,98 @@ augroup WordCounter
   autocmd FileType text set statusline+=\ %{WordCount()}\ words,
 augroup END
 
+"function! Obsess(bang)
+"  let l:cwd_dir = '~/.nvim/session/' . substitute(getcwd(), '^.*/', '', '')
+"
+"  if a:bang
+"    echo 'kill session'
+"    execute 'Obsession!'
+"  else
+"    echo isdirectory(l:cwd_dir)
+"
+"    if isdirectory(l:cwd_dir)
+"      echo 'is dir'
+"      Obsession
+"    else
+"      echo 'new session dir'
+"      execute '!mkdir -p ' . l:cwd_dir
+"      execute 'Obsession ' . l:cwd_dir
+"    endif
+"  endif
+"endfunction
+"
+"command! -bang Obsess call Obsess(<bang>0)
+
+function! Obsess(bang) abort
+  " Obsess!
+  if a:bang
+    Obsession!
+    return
+  endif
+
+  " if an existing session is running suspend it
+  if !empty(ObsessionStatus())
+    Obsession
+    return
+  endif
+
+  let l:dir = expand('~/.nvim/session/') . fnamemodify(getcwd(), ':t')
+  call mkdir(l:dir, 'p')
+  execute 'Obsession' fnameescape(l:dir)
+endfunction
+
+function! SessionFile() abort
+  return expand('~/.nvim/session/') . fnamemodify(getcwd(), ':t') . '/Session.vim'
+endfunction
+
+function! SessionRestore() abort
+  let l:file = SessionFile()
+
+  if !filereadable(l:file)
+    echohl WarningMsg
+    echomsg 'No session for ' . fnamemodify(getcwd(), ':t')
+    echohl NONE
+    return
+  endif
+
+  if !empty(filter(getbufinfo({'buflisted': 1}), 'v:val.changed'))
+    echohl WarningMsg
+    echomsg 'Unsaved changes; not restoring'
+    echohl NONE
+    return
+  endif
+
+  if exists('g:this_obsession')
+    Obsession
+  endif
+
+  silent! %bwipeout
+  execute 'source' fnameescape(l:file)
+endfunction
+
+nnoremap <leader>sr :call SessionRestore()<CR>
+
+command! -bang Obsess call Obsess(<bang>0)
+
+let g:airline#extensions#obsession#enabled = 0
+
+" Obsession Airline status
+function! ObsessSessionStatus() abort
+  if exists('g:this_obsession')
+    return '● ' . fnamemodify(g:this_obsession, ':h:t')
+  elseif !empty(v:this_session)
+    return '◯ ' . fnamemodify(v:this_session, ':h:t')
+  endif
+  return ''
+endfunction
+let g:airline#extensions#obsession#enabled = 0
+
+function! s:airline_obsess_init() abort
+  call airline#parts#define_function('obsess', 'ObsessSessionStatus')
+  let g:airline_section_y = airline#section#create_right(['obsess', 'ffenc'])
+endfunction
+
+augroup AirlineObsess
+  autocmd!
+  autocmd User AirlineAfterInit call s:airline_obsess_init()
+augroup END
