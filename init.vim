@@ -57,6 +57,8 @@ Plug 'tpope/vim-dispatch' | Plug 'gabesoft/vim-ags'
 
 " Fuzzy file finder
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
+"Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 
 " Syntax highlighting
 Plug 'saltstack/salt-vim'
@@ -615,3 +617,4 @@ augroup END
 
 let g:airline#extensions#obsession#enabled = 0
 let g:obsessive#dir = '~/.nvim/session'
+let g:obsessive#airline_enabled = 1
