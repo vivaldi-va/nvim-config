@@ -204,6 +204,18 @@ augroup BgHighlight
   autocmd WinLeave * set nocul
 augroup END
 
+augroup FileMarks
+  " tip: `<mark> to navigate
+  autocmd!
+  autocmd BufLeave *.css,*.scss             normal! mC
+  autocmd BufLeave *.html                   normal! mH
+  autocmd BufLeave *.js,*.ts,*.jsx,*.tsx    normal! mJ
+  autocmd BufLeave *.md                     normal! mM
+  autocmd BufLeave *.yml,*.yaml             normal! mY
+  autocmd BufLeave *.vim                    normal! mV
+  autocmd BufLeave .env*                    normal! mE
+augroup END
+
 lua vim.o.winborder = 'rounded'
 
 " All key mappings
@@ -226,6 +238,8 @@ nmap <leader>j :<C-u>call JSDocAdd()<CR>
 
 " Map main trigger for fuzzy file finder
 noremap <C-p> :FZF<CR>
+noremap <M-f> :Ag<CR>
+noremap <M-m> :Marks<CR>
 
 " Tagbar/ctags
 nmap <F2> :TagbarToggle<CR>
