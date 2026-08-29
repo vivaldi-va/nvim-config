@@ -331,11 +331,17 @@ let NERDTreeIgnore = ['\.pyc$', '\.egg$', '\.o$', '\~$', '__pycache__$', '\.egg-
 let NERDTreeShowHidden=1
 
 function! Nerd()
-      if argc() == 0 && !exists('s:std_in')
-            NERDTree
-            NERDTreeTabsOpen
-            wincmd p
-      endif
+  NERDTree
+
+  if argc() == 0 && !exists('s:std_in')
+    NERDTreeTabsOpen
+    wincmd p
+    return
+  endif
+
+  " hide NERDTree if no args when entering vim
+  " e.g. `vim foo.bar`
+  NERDTreeTabsClose
 endfunction
 
 autocmd VimEnter * call Nerd()
