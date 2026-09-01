@@ -102,7 +102,8 @@ Plug 'WhoIsSethDaniel/mason-tool-installer.nvim'
 
 
 " Javascript stuff
-Plug 'joegesualdo/jsdoc.vim'
+"Plug 'joegesualdo/jsdoc.vim'
+Plug 'heavenshell/vim-jsdoc', { 'do': 'make install' }
 
 " Ctags tagbar
 Plug 'majutsushi/tagbar'
@@ -230,6 +231,8 @@ nmap <leader>s :Scratch<CR>
 "nmap <leader>/ :noh<CR>
 nnoremap <CR> :noh<CR>
 
+" JSDoc
+nmap <silent> <leader>j <Plug>(jsdoc)
 
 " NERDTree toggle
 noremap <leader>t :NERDTreeTabsToggle<CR>
@@ -319,7 +322,6 @@ autocmd FileType javascript setlocal colorcolumn=99
 
 " JSDoc config
 let g:javascript_plugin_jsdoc=1
-
 
 " JSON
 let g:vim_json_syntax_conceal = 0
