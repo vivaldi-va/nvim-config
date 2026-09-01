@@ -44,6 +44,7 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'kshenoy/vim-signature'
 Plug 'mattn/emmet-vim'
+Plug 'mattn/webapi-vim'
 Plug 'ap/vim-css-color'
 Plug 'triglav/vim-visual-increment'
 Plug 'mtth/scratch.vim'
@@ -163,19 +164,21 @@ lua require('mason-tool-installer').setup({
       \    'gopls',
       \    'vimls',
       \    'emmet-language-server',
+      \    'somesass_ls',
       \ }
       \})
 lua require('mason-lspconfig').setup({ automatic_enable = false })
-lua vim.lsp.config('tsserver', vim.lsp.config.tsc)
+lua vim.lsp.config('tsc', vim.lsp.config.tsc)
 lua vim.lsp.config('emmet-language-server', vim.lsp.config.emmet_language_server)
 lua vim.lsp.config('vimls', vim.lsp.config.vimls)
+lua vim.lsp.config('somesass_ls', vim.lsp.config.somesass_ls)
 
-lua require('better-type-hover').setup({
+autocmd VimEnter,FileType typescript,typescriptreact lua require('better-type-hover').setup({
  \ openTypeDocKeymap = "K",
  \})
 lua vim.lsp.config('gopls', vim.lsp.config.gopls)
 
-lua vim.lsp.enable({ 'tsserver', 'emmet-language-server', 'vimls', 'gopls' })
+lua vim.lsp.enable({ 'tsc', 'emmet-language-server', 'vimls', 'gopls', 'somesass_ls' })
 
 lua local on_attach = function(client, bufnr)
       \ vim.lsp.completion.enable(true, client.id, bufnr, { autotrigger = true })
@@ -237,7 +240,7 @@ nmap <silent> <leader>j <Plug>(jsdoc)
 " NERDTree toggle
 noremap <leader>t :NERDTreeTabsToggle<CR>
 noremap <leader>f :NERDTreeFind<CR>
-nmap <leader>j :<C-u>call JSDocAdd()<CR>
+"nmap <leader>j :<C-u>call JSDocAdd()<CR>
 
 " Map main trigger for fuzzy file finder
 noremap <C-p> :FZF<CR>
@@ -383,6 +386,10 @@ au BufReadPost *.njk set syntax=jinja
 
 let g:jsx_ext_required = 0
 
+" emmet settings
+let g:user_emmet_settings = webapi#json#decode(join(readfile(expand('~/.emmet_preferences.json')), "\n"))
+
+
 hi Search ctermfg=0 ctermbg=11 guifg=Black guibg=Yellow
 hi SpellBad ctermfg=15 ctermbg=9 guifg=White guibg=Red
 hi Folded term=bold ctermfg=85 ctermbg=234 gui=bold guifg=#9cffd3 guibg=#202020
@@ -473,6 +480,14 @@ let g:netrw_browsex_viewer="xdg-open"
 autocmd BufNewFile,BufRead *.mmd set filetype=sequence
 autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescriptreact
 
+
+function! CopyRelPath()
+  let l:path = '/' . expand('%')
+  call setreg('+', l:path)
+  echo "Copied current path: " . l:path
+endfunction
+
+command! CopyRelPath call CopyRelPath()
 
 " Configure vim-pencil
 let g:pencil#wrapModeDefault = 'soft'   " default is 'hard'
