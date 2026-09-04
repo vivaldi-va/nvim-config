@@ -208,13 +208,15 @@ augroup BgHighlight
   autocmd WinLeave * set nocul
 augroup END
 
+" automatically mark files by type when navigating away
+" allows jumping back if switching file types often
 augroup FileMarks
   " tip: `<mark> to navigate
   autocmd!
   autocmd BufLeave *.css,*.scss             normal! mC
   autocmd BufLeave *.html                   normal! mH
   autocmd BufLeave *.js,*.ts,*.jsx,*.tsx    normal! mJ
-  autocmd BufLeave *.md                     normal! mM
+  autocmd BufLeave *.md,*.markdown          normal! mM
   autocmd BufLeave *.yml,*.yaml             normal! mY
   autocmd BufLeave *.vim                    normal! mV
   autocmd BufLeave .env*                    normal! mE
@@ -228,7 +230,7 @@ lua vim.o.winborder = 'rounded'
 " Hail to the <leader>
 let mapleader = ","
 
-nmap <leader>s :Scratch<CR>
+nmap <leader>S :Scratch<CR>
 
 " Bind to clear search
 "nmap <leader>/ :noh<CR>
@@ -262,6 +264,13 @@ nnoremap <leader>ct :ThesaurusQueryLookupCurrentWord<CR>
 nnoremap <leader>w :Wordy<space>
 nnoremap <F8> :NextWordy<CR>
 nnoremap <leader>W :NoWordy<CR>
+
+command! -bar -bang Maps call fzf#vim#maps("n", <bang>0)
+command! -bar -bang Imaps call fzf#vim#maps("i", <bang>0)
+command! -bar -bang Vmaps call fzf#vim#maps("v", <bang>0)
+
+" free up M-p
+"let g:AutoPairsShortcutToggle = ''
 
 " Ignore case in search
 set ignorecase
