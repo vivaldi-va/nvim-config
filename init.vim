@@ -387,7 +387,16 @@ au BufReadPost *.njk set syntax=jinja
 let g:jsx_ext_required = 0
 
 " emmet settings
-let g:user_emmet_settings = webapi#json#decode(join(readfile(expand('~/.emmet_preferences.json')), "\n"))
+let s:emmet_prefs = expand('~/.emmet_preferences.json')
+if filereadable(s:emmet_prefs)
+  try
+    let g:user_emmet_settings = json_decode(join(readfile(s:emmet_prefs), "\n"))
+  catch
+    echohl WarningMsg
+    echomsg 'emmet: could not parse ' . s:emmet_prefs . ' (' . v:exception . ')'
+    echohl NONE
+  endtry
+endif
 
 
 hi Search ctermfg=0 ctermbg=11 guifg=Black guibg=Yellow
