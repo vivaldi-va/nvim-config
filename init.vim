@@ -244,6 +244,8 @@ noremap <leader>t :NERDTreeTabsToggle<CR>
 noremap <leader>f :NERDTreeFind<CR>
 "nmap <leader>j :<C-u>call JSDocAdd()<CR>
 
+noremap <leader>ss :Obsess<CR>
+
 " Map main trigger for fuzzy file finder
 noremap <C-p> :FZF<CR>
 noremap <M-f> :Ag<CR>
@@ -268,6 +270,7 @@ nnoremap <leader>W :NoWordy<CR>
 command! -bar -bang Maps call fzf#vim#maps("n", <bang>0)
 command! -bar -bang Imaps call fzf#vim#maps("i", <bang>0)
 command! -bar -bang Vmaps call fzf#vim#maps("v", <bang>0)
+command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, {'options': '--delimiter : --nth 4..'}, <bang>0)
 
 " free up M-p
 "let g:AutoPairsShortcutToggle = ''
